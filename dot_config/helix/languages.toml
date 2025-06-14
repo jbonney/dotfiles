@@ -1,0 +1,16 @@
+[[language]]
+name = "ruby"
+formatter = { command = "bundle", args = ["exec", "rubocop", "-a", "--stdin", "foo.rb", "--stderr", "--fail-level", "fatal"] }
+auto-format = true
+
+[language-server.solargraph]
+config = { diagnostics = true, formatting = false }
+
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "html"
+roots = [".git"]
+language-servers = ["emmet-lsp"]

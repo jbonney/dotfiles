@@ -1,0 +1,65 @@
+theme = "tokyonight_moon"
+
+[editor]
+bufferline = "always"
+auto-format = true
+line-number = "relative"
+# Show a ruler at column 120 and set the text width to same value
+rulers = [120]
+text-width = 120
+# Force the theme to show colors
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+ignore = false
+git-ignore = false
+git-global = false
+
+[editor.indent-guides]
+render = true
+character = "┊" # Some characters that work well: "╎", "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+left = ["mode", "spinner", "register"]
+center = ["version-control", "spacer", "file-name", "read-only-indicator", "file-modification-indicator", "total-line-numbers"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+# Based on https://theari.dev/blog/enhanced-helix-config/
+# Use Shift-x to unselect the line previously selected
+[keys.normal]
+A-x = "extend_to_line_bounds"
+X = ["extend_line_up", "extend_to_line_bounds"]
+"ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
+C-right = "move_next_word_start"
+C-left = "move_prev_word_start"
+# 
+C-d = ["extend_to_line_bounds", "yank", "open_below", "normal_mode", "replace_with_yanked", "collapse_selection"]
+C-D = ["extend_to_line_bounds", "yank", "open_above", "normal_mode", "replace_with_yanked", "collapse_selection"]
+
+[keys.select]
+A-x = "extend_to_line_bounds"
+X = ["extend_line_up", "extend_to_line_bounds"]
+
+[keys.insert]
+C-right = "move_next_long_word_start"
+C-left = "move_prev_word_start"
+C-d = ["normal_mode", "extend_to_line_bounds", "yank", "open_below", "replace_with_yanked", "collapse_selection"]
+C-D = ["normal_mode", "extend_to_line_bounds", "yank", "open_above", "replace_with_yanked", "collapse_selection"]
