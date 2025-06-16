@@ -1,0 +1,76 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+global_vars:
+  - name: myname
+    type: echo
+    params:
+      echo: Jimmy
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  # Print the output of a shell command
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo 'Hello from your shell'"
+  - trigger: ":br"
+    replace: |-
+      Best regards,
+      {{myname}}
+  - trigger: ":mvh"
+    replace: |-
+      Med vänliga hälsningar,
+      {{myname}}
+  - trigger: ":hjälp"
+    replace: Tack på förhand för hjälpen.
+  - trigger: ":help"
+    replace: Thank you in advance for your help.
+  - trigger: ":confirmation"
+    replace: Thank you for the confirmation.
+  - trigger: ":information"
+    replace: Thank you for the additional information.
+  - trigger: ":input"
+    replace: Thank you for your input.
+  - trigger: ":questions"
+    replace: Let me know if you have any questions.
+  - trigger: ":questions"
+    replace: "Please let me know if you need more information or have any questions."
+  - trigger: ":sch"
+    replace: "[For information, this is a scheduled message so if you already took action on the question / comment that follow, you can simply ignore it.]"
+  - trigger: ":hearing"
+    replace: "I am looking forward to hearing from you."
+  - trigger: ":ty"
+    replace: "Thank you."
+  - trigger: ":link"
+    replace: "[$|$]({{clipboard}})"
+    vars:
+      - name: "clipboard"
+        type: "clipboard"
+  - trigger: ":code"
+    replace: "{{$|$}}"

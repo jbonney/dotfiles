@@ -1,0 +1,29 @@
+matches:
+  - trigger: ":clarity-reject-less"
+    replace: "Hi, please make sure to review https://confluence.build.ingka.ikea.com/x/rCjjEw. Since you reported less than 40h, please include a note to your timesheet. Thank you in advance for your help."
+  - trigger: ":good-receipt"
+    replace: "$|$ hours reported in Timehub for {{month}} and approved in Magnit. Review OK. Good receipt confirmed."
+    vars:
+      - name: month
+        type: date
+        params:
+          format: "%B"
+  - trigger: ":good-receipt"
+    replace: "$|$ hours reported in Timehub for {{last_month}} and approved in Magnit. Review OK. Good receipt confirmed."
+    vars:
+      - name: last_month
+        type: date
+        params:
+          format: "%B"
+          offset: -1728000
+  - trigger: ":em"
+    replace: engineering manager
+  - trigger: ":po"
+    replace: product owner
+  - trigger: ":jira"
+    replace: "https://jira.digital.ingka.com/browse/"
+  - trigger: ":jira"
+    replace: "https://jira.digital.ingka.com/browse/{{clipboard}}"
+    vars:
+      - name: "clipboard"
+        type: "clipboard"
