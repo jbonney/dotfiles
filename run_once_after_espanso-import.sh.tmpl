@@ -6,7 +6,7 @@
 # ensure that espanso is stopped
 espanso stop
 # remove the espanso folder if it exists
-rm -rf $HOME/Library/Application Support/espanso
+rm -rf "$HOME/Library/Application Support/espanso"
 # create the symlink from the .config folder to the regular config folder
 ln -s "$HOME/.config/espanso" "$HOME/Library/Application Support/"
 # start espanso again
