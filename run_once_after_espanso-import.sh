@@ -1,0 +1,14 @@
+#!/bin/bash
+# In MacOS, the espanso config is by default under $HOME/Library/Application Support/espanso but in
+# linux is lives under $HOME/.config/espanso and we want to use the same location across OSes.
+# https://espanso.org/docs/sync/#macos
+{{ if eq .chezmoi.os "darwin" -}}
+# ensure that espanso is stopped
+espanso stop
+# remove the espanso folder if it exists
+rm -rf $HOME/Library/Application Support/espanso
+# create the symlink from the .config folder to the regular config folder
+ln -s "$HOME/.config/espanso" "$HOME/Library/Application Support/"
+# start espanso again
+espanso start
+{{ end -}}
