@@ -1848,9 +1848,9 @@ allow_remote_control yes
 map f2 launch --cwd=current hx .
 map f3 new_window_with_cwd
 map f5 load_config_file
-map f6 launch --location=split
-map f7 launch --location=hsplit
-map f8 launch --location=vsplit
+map f6 launch --location=split --cwd=current
+map f7 launch --location=hsplit --cwd=current
+map f8 launch --location=vsplit --cwd=current
 map f9 launch --allow-remote-control kitty +kitten broadcast --match-tab state:focused
 #: Similarly, to alias kitten invocation::
 
