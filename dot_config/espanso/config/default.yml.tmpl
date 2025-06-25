@@ -51,6 +51,8 @@ keyboard_layout:
 # fully deleted and some letters were missed
 inject_delay: 7
 key_delay: 7
+{{- if eq .chezmoi.os "linux" }}
 # Use xclip as a replacement to handle the clipboard. Might be useful if the copy/paste is not
 # working as expected natively.
-# x11_use_xclip_backend: true
+x11_use_xclip_backend: true
+{{- end }}
