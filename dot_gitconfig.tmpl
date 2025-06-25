@@ -1,0 +1,73 @@
+[user]
+	name = Jimmy Bonney
+	email = {{ .email | quote }}
+[alias]
+	ls = ls-files
+	co = checkout
+	ci = commit
+	br = branch
+	df = diff
+	dc = diff --cached
+	dm = diff | mate
+	lg = log -p
+	gl = git pull
+	gp = git push
+	st = status
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	tree = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+	# Show files ignored by git:
+	ign = ls-files -o -i --exclude-standard
+	syncbr = remote prune origin
+[apply]
+	whitespace = nowarn
+[color]
+	ui = auto
+[color "branch"]
+	current = green
+	local = normal
+	remote = red
+	plain = normal
+[color "diff"]
+	plain = normal
+	meta = bold
+	frag = cyan bold
+	old = red bold
+	new = green bold
+	commit = yellow
+[color "status"]
+	header = normal
+	added = blue
+	updated = green
+	changed = yellow
+	untracked = cyan
+	nobranch = red
+
+# delta (https://github.com/dandavison/delta) configuration below
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+	side-by-side = true
+	line-numbers = true
+    hyperlinks = true
+
+[merge]
+    conflictstyle = zdiff3
+
+# [diff]
+#	external = git-diff-meld
+[branch]
+	autosetupmerge = true
+
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
