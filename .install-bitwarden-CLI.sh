@@ -24,8 +24,7 @@ Linux() {
   INSTALL_PATH="$HOME/Apps/bw"
 
   # check if dependencies are installed
-  dependencies=("unzip" "wget")
-  for dependency in "${dependencies[@]}"; do
+  for dependency in unzip wget; do
     if ! command -v "$dependency" >/dev/null 2>&1; then
         echo "$dependency is not installed. Please install it and try again."
         exit 2
