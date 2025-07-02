@@ -122,6 +122,10 @@ fi
 
 # Other applications
 sudo apt install -y syncthing
+if ! command -v ulauncher >/dev/null 2>&1
+then
+  sudo add-apt-repository universe -y && sudo add-apt-repository ppa:agornostal/ulauncher -y && sudo apt update && sudo apt install ulauncher
+fi
 
 # Lazygit as documented in https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation
 if ! command -v lazygit >/dev/null 2>&1
