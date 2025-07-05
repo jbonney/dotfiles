@@ -62,7 +62,7 @@ if flatpak list --app | grep -q "Telegram"
 then
   echo "Telegram already installed, skipping installation"
 else
-  flatpak install flathub org.telegram.desktop
+  flatpak install -y flathub org.telegram.desktop
 fi
 
 # Standard Notes
@@ -70,7 +70,7 @@ if flatpak list --app | grep -q "Standard Notes"
 then
   echo "Standard Notes already installed, skipping installation"
 else
-  flatpak run org.standardnotes.standardnotes
+  flatpak install -y org.standardnotes.standardnotes
 fi
 
 # Bitwarden
@@ -78,7 +78,7 @@ if flatpak list --app | grep -q "Bitwarden"
 then
   echo "Bitwarden already installed, skipping installation"
 else
-  flatpak run com.bitwarden.desktop
+  flatpak install -y com.bitwarden.desktop
 fi
 
 # local desktop apps
