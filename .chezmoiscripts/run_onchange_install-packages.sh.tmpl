@@ -4,16 +4,82 @@
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install -y curl git unzip
+
 # utilities
 sudo apt install -y bat git-delta fd-find ripgrep tldr btop
+
 # libraries
 sudo apt install -y \
   build-essential pkg-config autoconf bison clang rustc libssl-dev libreadline-dev \
   zlib1g-dev libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev libjemalloc2 \
   libvips imagemagick libmagickwand-dev mupdf mupdf-tools gir1.2-gtop-2.0 gir1.2-clutter-1.0 \
   redis-tools sqlite3 libsqlite3-0
-# desktop applications
-sudo apt install -y xournalpp diodon ksnip
+
+# desktop applications: pdf editor, clipboard manager, screenshot tool
+sudo apt install -y xournalpp diodon ksnip pdfarranger shutter texmaker trimage
+
+# VPN config
+sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
+
+# Development
+sudo apt install -y sqlitebrowser glogg meld
+
+# misc applications requiring separate ppa
+# ulauncher - application launcher
+if ! command -v ulauncher >/dev/null 2>&1
+then
+  sudo add-apt-repository universe -y
+  sudo add-apt-repository ppa:agornostal/ulauncher -y
+  sudo apt update && sudo apt install ulauncher
+else
+  echo "ulauncher already installed, skipping installation"
+fi
+
+# spotify
+if ! command -v spotify >/dev/null 2>&1
+then
+  curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/source
+else
+  echo "spotify already installed, skipping installation"
+fi
+
+# signal
+if ! command -v signal-desktop >/dev/null 2>&1
+then
+  wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg;
+  cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+  sudo tee /etc/apt/sources.list.d/signal-xenial.list
+  sudo apt update && sudo apt install signal-desktop
+else
+  echo "signal already installed, skipping installation"
+fi
+
+# flatpak
+# Telegram
+if flatpak list --app | grep -q "Telegram"
+then
+  echo "Telegram already installed, skipping installation"
+else
+  flatpak install flathub org.telegram.desktop
+fi
+
+# Standard Notes
+if flatpak list --app | grep -q "Standard Notes"
+then
+  echo "Standard Notes already installed, skipping installation"
+else
+  flatpak run org.standardnotes.standardnotes
+fi
+
+# Bitwarden
+if flatpak list --app | grep -q "Bitwarden"
+then
+  echo "Bitwarden already installed, skipping installation"
+else
+  flatpak run com.bitwarden.desktop
+fi
 
 # local desktop apps
 # Zed editor
@@ -25,9 +91,14 @@ else
 fi
 
 # Helix editor
-sudo add-apt-repository -y ppa:maveonair/helix-editor
-sudo apt update -y
-sudo apt install -y helix
+if ! command -v hx >/dev/null 2>&1
+then
+  sudo add-apt-repository -y ppa:maveonair/helix-editor
+  sudo apt update -y
+  sudo apt install -y helix
+else
+  echo "helix editor already installed, skipping installation"
+fi
 
 # Kitty terminal
 if [ -e ~/.local/kitty.app/bin/kitty ]; then
