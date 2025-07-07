@@ -59,6 +59,7 @@ if ! command -v spotify >/dev/null 2>&1
 then
   curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
   echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/source
+  sudo apt update -y && sudo apt install -y spotify-client
 else
   echo "spotify already installed, skipping installation"
 fi
