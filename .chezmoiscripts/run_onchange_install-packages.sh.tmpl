@@ -1,5 +1,5 @@
 {{ if eq .chezmoi.os "linux" -}}
-#!/bin/sh
+#!/bin/bash
 # base
 sudo apt update -y
 sudo apt upgrade -y
@@ -180,7 +180,17 @@ else
   echo "lazygit already installed, skipping installation"
 fi
 
+# rbenv for ruby version management
+if ! command rbenv >/dev/null 2>&1
+then
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  ~/.rbenv/bin/rbenv init
+else
+  echo "rbenv already installed, skipping installation"
+fi
+
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install bat git-delta fd-find ripgrep dust tldr btop
+brew install rbenv
 {{ end -}}
