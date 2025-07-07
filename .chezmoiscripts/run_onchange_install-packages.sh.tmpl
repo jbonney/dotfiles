@@ -181,7 +181,7 @@ else
 fi
 
 # rbenv for ruby version management
-if ! command rbenv >/dev/null 2>&1
+if ! command -v rbenv >/dev/null 2>&1
 then
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   ~/.rbenv/bin/rbenv init
