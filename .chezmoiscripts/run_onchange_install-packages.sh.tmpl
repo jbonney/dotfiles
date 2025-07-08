@@ -186,6 +186,7 @@ if ! command -v rbenv >/dev/null 2>&1
 then
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   ~/.rbenv/bin/rbenv init
+  git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 else
   echo "rbenv already installed, skipping installation"
 fi
