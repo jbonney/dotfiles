@@ -1,0 +1,36 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                      Install Messaging Apps                   #####"
+echo "#########################################################################"
+echo "*************************************************************************"
+echo "*****                          Install Signal                       *****"
+echo "*************************************************************************"
+# signal
+if ! command -v signal-desktop >/dev/null 2>&1
+then
+  wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg;
+  cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+  sudo tee /etc/apt/sources.list.d/signal-xenial.list
+  sudo apt update && sudo apt install signal-desktop
+else
+  echo "signal already installed, skipping installation"
+fi
+
+echo "*************************************************************************"
+echo "*****                         Install Telegram                      *****"
+echo "*************************************************************************"
+# flatpak
+# Telegram
+if flatpak list --app | grep -q "Telegram"
+then
+  echo "Telegram already installed, skipping installation"
+else
+  flatpak install -y flathub org.telegram.desktop
+fi
+
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+brew install --cask telegram signal
+{{ end -}}

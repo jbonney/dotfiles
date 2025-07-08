@@ -1,0 +1,42 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+echo "*************************************************************************"
+echo "*****          Install base packages (curl, wget, git, ...)         *****"
+echo "*************************************************************************"
+# base packages
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y curl wget git unzip
+
+# utilities
+sudo apt install -y bat git-delta fd-find ripgrep tldr btop
+
+# libraries
+sudo apt install -y \
+  build-essential pkg-config autoconf bison clang rustc libssl-dev libreadline-dev \
+  zlib1g-dev libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev libjemalloc2 \
+  libvips imagemagick libmagickwand-dev mupdf mupdf-tools gir1.2-gtop-2.0 gir1.2-clutter-1.0 \
+  redis-tools sqlite3 libsqlite3-0
+
+echo "*************************************************************************"
+echo "*****               Install base desktop applications               *****"
+echo "*************************************************************************"
+# desktop applications: pdf editor, clipboard manager, screenshot tool
+sudo apt install -y xournalpp diodon ksnip pdfarranger shutter texmaker trimage
+
+echo "*************************************************************************"
+echo "*****                   Install openconnect (VPN)                   *****"
+echo "*************************************************************************"
+# VPN config
+sudo apt install -y openconnect network-manager-openconnect network-manager-openconnect-gnome
+
+echo "*************************************************************************"
+echo "*****             Install base development applications             *****"
+echo "*************************************************************************"
+# Development
+sudo apt install -y sqlitebrowser glogg meld
+
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+brew install wget curl git unzip bat git-delta fd-find ripgrep dust tldr btop
+{{ end -}}

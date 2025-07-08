@@ -1,0 +1,29 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                        Install Proton Apps                    #####"
+echo "#########################################################################"
+echo "*************************************************************************"
+echo "*****             Install Proton Applications (mail, VPN)           *****"
+echo "*************************************************************************"
+# Proton
+if ! command -v proton-mail >/dev/null 2>&1
+then
+  wget -O /tmp/protonmail.deb https://proton.me/download/mail/linux/ProtonMail-desktop-beta.deb
+  sudo dpkg -i /tmp/protonmail.deb
+else
+  echo "Protonmail already installed, skipping installation"
+fi
+
+if ! command -v protonvpn-app >/dev/null 2>&1
+then
+  wget -O /tmp/protonvpn.deb https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.8_all.deb
+  sudo dpkg -i /tmp/protonvpn.deb && sudo apt update
+  sudo apt install -y proton-vpn-gnome-desktop
+  sudo apt install -y libayatana-appindicator3-1 gir1.2-ayatanaappindicator3-0.1 gnome-shell-extension-appindicator
+else
+  echo "ProtonVPN already installed, skipping installation"
+fi
+
+{{ else if eq .chezmoi.os "darwin" -}}
+{{ end -}}

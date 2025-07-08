@@ -1,0 +1,53 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                 Install generic utility tools                 #####"
+echo "#########################################################################"
+echo "*************************************************************************"
+echo "*****                     Install Standard Notes                    *****"
+echo "*************************************************************************"
+# Standard Notes
+if flatpak list --app | grep -q "Standard Notes"
+then
+  echo "Standard Notes already installed, skipping installation"
+else
+  flatpak install -y org.standardnotes.standardnotes
+fi
+
+echo "*************************************************************************"
+echo "*****                       Install Bitwarden                       *****"
+echo "*************************************************************************"
+# Bitwarden
+if flatpak list --app | grep -q "Bitwarden"
+then
+  echo "Bitwarden already installed, skipping installation"
+else
+  flatpak install -y com.bitwarden.desktop
+fi
+
+echo "*************************************************************************"
+echo "*****                        Install Espanso                        *****"
+echo "*************************************************************************"
+# Espanso text expander
+if ! command -v espanso >/dev/null 2>&1
+then
+  # Create the $HOME/opt destination folder
+  mkdir -p ~/opt
+  # Download the AppImage inside it
+  wget -O ~/opt/Espanso.AppImage 'https://github.com/espanso/espanso/releases/download/v2.2.1/Espanso-X11.AppImage'
+  # Make it executable
+  chmod u+x ~/opt/Espanso.AppImage
+  # Create the "espanso" command alias
+  sudo ~/opt/Espanso.AppImage env-path register
+  # Register espanso as a systemd service (required only once)
+  espanso service register
+  # Start espanso
+  espanso start
+else
+  echo "espanso already installed, skipping installation"
+fi
+
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+brew install --cask espanso bitwarden standard-notes
+{{ end -}}

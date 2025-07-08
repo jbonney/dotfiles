@@ -1,0 +1,42 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                    Install miscellaneous apps                 #####"
+echo "#########################################################################"
+echo "*************************************************************************"
+echo "*****                        Install ULauncher                      *****"
+echo "*************************************************************************"
+# misc applications requiring separate ppa
+# ulauncher - application launcher
+if ! command -v ulauncher >/dev/null 2>&1
+then
+  sudo add-apt-repository universe -y
+  sudo add-apt-repository ppa:agornostal/ulauncher -y
+  sudo apt update -y && sudo apt install -y ulauncher
+else
+  echo "ulauncher already installed, skipping installation"
+fi
+
+echo "*************************************************************************"
+echo "*****                         Install Spotify                       *****"
+echo "*************************************************************************"
+# spotify
+if ! command -v spotify >/dev/null 2>&1
+then
+  curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/source
+  sudo apt update -y && sudo apt install -y spotify-client
+else
+  echo "spotify already installed, skipping installation"
+fi
+
+echo "*************************************************************************"
+echo "*****                        Install Syncthing                      *****"
+echo "*************************************************************************"
+# Other applications
+sudo apt install -y syncthing
+
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+brew install spotify
+{{ end -}}

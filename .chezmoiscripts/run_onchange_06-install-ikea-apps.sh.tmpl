@@ -9,5 +9,5 @@ then
 fi
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
-brew install slack
+brew install --cask slack
 {{ end -}}
