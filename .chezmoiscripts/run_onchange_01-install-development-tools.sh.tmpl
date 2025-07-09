@@ -109,6 +109,8 @@ fi
 
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
-brew install --cask zed kitty
+brew install --cask zed
+brew install --cask kitty
+brew install --cask devtoys
 brew install helix lazygit rbenv
 {{ end -}}
