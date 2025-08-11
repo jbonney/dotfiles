@@ -13,6 +13,8 @@ then
   sudo add-apt-repository universe -y
   sudo add-apt-repository ppa:agornostal/ulauncher -y
   sudo apt update -y && sudo apt install -y ulauncher
+  /usr/bin/python3 -m pip install simpleeval
+  /usr/bin/python3 -m pip install Pint
 else
   echo "ulauncher already installed, skipping installation"
 fi
