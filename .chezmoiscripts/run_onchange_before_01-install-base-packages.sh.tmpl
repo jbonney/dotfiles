@@ -44,6 +44,17 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 sudo apt update && sudo apt install -y brave-browser
 
+echo "*************************************************************************"
+echo "*****               Install Zen browser                             *****"
+echo "*************************************************************************"
+# Zen browser
+sudo flatpak install flathub app.zen_browser.zen
+
+echo "*************************************************************************"
+echo "*****            Install uv package manager                         *****"
+echo "*************************************************************************"
+sudo curl -LsSf https://astral.sh/uv/install.sh | sh
+
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install wget curl git unzip bat git-delta fd ripgrep dust tldr btop
