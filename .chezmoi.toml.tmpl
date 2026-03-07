@@ -7,7 +7,10 @@
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
+# Prompt for the user email
 {{ $email := promptString "Git email address for the author/committer" -}}
+
+# Store email and osid so that they can be used later
 [data]
   email = {{ $email | quote }}
   osid = {{ $osid | quote }}
