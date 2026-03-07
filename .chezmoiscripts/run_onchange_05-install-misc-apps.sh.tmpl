@@ -40,5 +40,34 @@ sudo apt install -y syncthing
 
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
-# brew install --cask spotify
+# Test APIs
+brew install --cask bruno
+# Virtual screen to facilitate screen sharing
+brew install --cask deskpad
+# Web browser
+brew install --cask firefox
+# Hide applications in the menu bar when there are too many
+brew install --cask hiddenbar
+# Simple calendar overview
+brew install --cask itsycal
+# Send files on the local network between machines
+brew install --cask localsend
+# Logitech keyboard / mouse configuration
+brew install --cask logi-options+
+# Clipboard manager / history
+brew install --cask maccy
+# Merge / File comparison
+brew install --cask meld
+# Easier CSV navigation
+# modern-csv
+# Not available as a brew cask
+# remarkable
+# Screenshots
+brew install --cask shottr
+# Music
+brew install --cask spotify
+# Web browser
+brew install --cask zen
+# Install oh-my-zsh https://ohmyz.sh/#install
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 {{ end -}}
