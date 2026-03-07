@@ -9,6 +9,11 @@ espanso stop
 rm -rf "$HOME/Library/Application Support/espanso"
 # create the symlink from the .config folder to the regular config folder
 ln -s "$HOME/.config/espanso" "$HOME/Library/Application Support/"
+# register espanso service
+espanso service register
+# and register it one more time due to issue #1099
+# https://github.com/espanso/issues/1099
+espanso service register
 # start espanso again
 espanso start
 {{ end -}}
