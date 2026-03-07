@@ -1,0 +1,17 @@
+# Customize configuration when running `chezmoi init`
+# This template will trigger prpompts to fill in machine specific
+# data, such as the email or name to use for instance
+
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{ $email := promptString "Git email address for the author/committer" -}}
+[data]
+  email = {{ $email | quote }}
+  osid = {{ $osid | quote }}
+
+# Install Bitwarden CLI
+[hooks.read-source-state.pre]
+  command = ".local/share/chezmoi/.install-bitwarden-CLI.sh"
