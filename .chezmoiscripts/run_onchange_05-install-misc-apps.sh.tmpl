@@ -69,5 +69,9 @@ brew install --cask spotify
 # Web browser
 brew install --cask zen
 # Install oh-my-zsh https://ohmyz.sh/#install
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  echo "oh-my-zsh already installed, skipping installation"
+fi
 {{ end -}}
