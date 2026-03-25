@@ -1,0 +1,8 @@
+{{- if ne .chezmoi.os "linux" }}
+dot_config/hypr/
+dot_config/satty/
+dot_config/snappy-switcher/
+dot_config/ulauncher/
+dot_config/uwsm/
+dot_local/bin/omarchy-cmd-scrollshot
+{{- end }}

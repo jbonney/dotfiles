@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Take a scrolling screenshot of a selected region.
+# Saves to ~/Pictures by default, but that can be changed via OMARCHY_SCREENSHOT_DIR or XDG_PICTURES_DIR ENVs.
+
+SCROLLSHOT=scrollshot
+
+[[ -f ~/.config/user-dirs.dirs ]] && source ~/.config/user-dirs.dirs
+OUTPUT_DIR="${OMARCHY_SCREENSHOT_DIR:-${XDG_PICTURES_DIR:-$HOME/Pictures}}"
+
+if [[ ! -d $OUTPUT_DIR ]]; then
+  notify-send "Screenshot directory does not exist: $OUTPUT_DIR" -u critical -t 3000
+  exit 1
+fi
+
+SCREENSHOT_EDITOR="${OMARCHY_SCREENSHOT_EDITOR:-satty}"
+
+open_editor() {
+  local filepath="$1"
+  if [[ $SCREENSHOT_EDITOR == "satty" ]]; then
+    satty --filename "$filepath" \
+      --output-filename "$filepath" \
+      --actions-on-enter save-to-clipboard \
+      --save-after-copy \
+      --copy-command 'wl-copy'
+  else
+    $SCREENSHOT_EDITOR "$filepath"
+  fi
+}
+
+FILENAME="scrollshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
+FILEPATH="$OUTPUT_DIR/$FILENAME"
+FRAMES_DIR=$(mktemp -d)
+
+$SCROLLSHOT --capture-only "$FRAMES_DIR" || { rm -rf "$FRAMES_DIR"; exit 1; }
+
+(sleep 1 && notify-send "Scrolling screenshot captured" "Stitching frames, this may take a moment…" -t 10000) &
+STITCH_NOTIFY_PID=$!
+
+$SCROLLSHOT -i "$FRAMES_DIR" --cleanup -o "$FILEPATH" || { kill $STITCH_NOTIFY_PID 2>/dev/null; exit 1; }
+kill $STITCH_NOTIFY_PID 2>/dev/null
+
+wl-copy <"$FILEPATH"
+
+(
+  ACTION=$(notify-send "Scrolling screenshot saved to clipboard and file" "Edit with Super + Alt + , (or click this)" -t 10000 -i "$FILEPATH" -A "default=edit")
+  [[ $ACTION == "default" ]] && open_editor "$FILEPATH"
+) &
