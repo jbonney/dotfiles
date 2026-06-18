@@ -68,7 +68,7 @@ echo "*****                        Install Espanso                        *****"
 echo "*************************************************************************"
 if ! command -v espanso >/dev/null 2>&1
 then
-  yay -S --noconfirm --needed espanso-wayland-bin
+  yay -S --noconfirm --needed espanso-wayland
   espanso service register
   espanso start
 else
