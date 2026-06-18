@@ -55,6 +55,13 @@ echo "*****            Install uv package manager                         *****"
 echo "*************************************************************************"
 sudo curl -LsSf https://astral.sh/uv/install.sh | sh
 
+{{ else if eq .osid "linux-arch" -}}
+#!/bin/bash
+echo "*************************************************************************"
+echo "*****          Install base packages (curl, wget, git, ...)         *****"
+echo "*************************************************************************"
+yay -Sy --noconfirm --needed wget curl git unzip zen-browser-bin
+
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install wget curl git unzip bat git-delta fd ripgrep dust tldr btop zoxide
