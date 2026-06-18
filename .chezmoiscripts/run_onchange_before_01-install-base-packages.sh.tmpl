@@ -60,7 +60,7 @@ sudo curl -LsSf https://astral.sh/uv/install.sh | sh
 echo "*************************************************************************"
 echo "*****          Install base packages (curl, wget, git, ...)         *****"
 echo "*************************************************************************"
-yay -Sy --noconfirm --needed wget curl git unzip zen-browser-bin
+yay -Sy --noconfirm --needed wget curl git unzip zen-browser-bin snappy-switcher
 
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
