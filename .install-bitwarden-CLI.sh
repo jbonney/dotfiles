@@ -49,10 +49,10 @@ Linux() {
   mkdir -p $HOME/Apps
 
   if [[ ":$PATH:" == *":$HOME/Apps:"* ]]; then
-    echo "~/Apps is already part of the path"
+    echo "~/Apps is already part of the PATH."
   else
-    echo "PATH=$PATH:/home/jimmy/Apps" > $HOME/.bashrc && source $HOME/.bashrc
-    echo "~/Apps has been added to the path"
+    echo 'export PATH="$HOME/Apps:$PATH"' >> "$HOME/.bashrc"
+    echo "⚠️  ~/Apps has been added to ~/.bashrc. Please restart your terminal or run: source ~/.bashrc"
   fi
   
   echo "Moving bw to $INSTALL_PATH"
