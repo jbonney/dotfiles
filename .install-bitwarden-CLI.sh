@@ -23,11 +23,19 @@ Linux() {
   TEMP_FILE="/tmp/bw-linux.zip"
   INSTALL_PATH="$HOME/Apps/bw"
 
-  # check if dependencies are installed
+  # check if dependencies are installed, auto-install if possible
   for dependency in unzip wget; do
     if ! command -v "$dependency" >/dev/null 2>&1; then
+      if command -v pacman >/dev/null 2>&1; then
+        sudo pacman -Sy --noconfirm --needed "$dependency"
+      elif command -v apt >/dev/null 2>&1; then
+        sudo apt install -y "$dependency"
+      elif command -v brew >/dev/null 2>&1; then
+        brew install "$dependency"
+      else
         echo "$dependency is not installed. Please install it and try again."
         exit 2
+      fi
     fi
   done
 
