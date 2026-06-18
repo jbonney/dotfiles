@@ -47,6 +47,34 @@ else
   echo "espanso already installed, skipping installation"
 fi
 
+{{ else if eq .osid "linux-arch" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                 Install generic utility tools                 #####"
+echo "#########################################################################"
+
+echo "*************************************************************************"
+echo "*****                     Install Standard Notes                    *****"
+echo "*************************************************************************"
+yay -S --noconfirm --needed standardnotes-desktop
+
+echo "*************************************************************************"
+echo "*****                       Install Bitwarden                       *****"
+echo "*************************************************************************"
+yay -S --noconfirm --needed bitwarden
+
+echo "*************************************************************************"
+echo "*****                        Install Espanso                        *****"
+echo "*************************************************************************"
+if ! command -v espanso >/dev/null 2>&1
+then
+  yay -S --noconfirm --needed espanso-wayland-bin
+  espanso service register
+  espanso start
+else
+  echo "espanso already installed, skipping installation"
+fi
+
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install --cask espanso

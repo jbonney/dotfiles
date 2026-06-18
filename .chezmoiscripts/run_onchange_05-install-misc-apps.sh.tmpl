@@ -38,6 +38,17 @@ echo "*************************************************************************"
 # Other applications
 sudo apt install -y syncthing
 
+{{ else if eq .osid "linux-arch" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                    Install miscellaneous apps                 #####"
+echo "#########################################################################"
+
+echo "*************************************************************************"
+echo "*****                        Install Syncthing                      *****"
+echo "*************************************************************************"
+yay -S --noconfirm --needed syncthing
+
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 # Test APIs

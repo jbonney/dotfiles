@@ -25,5 +25,16 @@ else
   echo "ProtonVPN already installed, skipping installation"
 fi
 
+{{ else if eq .osid "linux-arch" -}}
+#!/bin/bash
+echo "#########################################################################"
+echo "#####                        Install Proton Apps                    #####"
+echo "#########################################################################"
+
+echo "*************************************************************************"
+echo "*****                      Install ProtonVPN CLI                    *****"
+echo "*************************************************************************"
+yay -S --noconfirm --needed proton-vpn-cli
+
 {{ else if eq .chezmoi.os "darwin" -}}
 {{ end -}}
