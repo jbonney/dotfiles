@@ -61,6 +61,9 @@ echo "*************************************************************************"
 echo "*****          Install base packages (curl, wget, git, ...)         *****"
 echo "*************************************************************************"
 yay -Sy --noconfirm --needed wget curl git unzip zen-browser-bin snappy-switcher
+if [ ! -f "$HOME/.config/snappy-switcher/config.ini" ]; then
+  snappy-install-config
+fi
 
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
