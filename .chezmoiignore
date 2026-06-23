@@ -4,5 +4,7 @@ dot_config/satty/
 dot_config/snappy-switcher/
 dot_config/ulauncher/
 dot_config/uwsm/
+dot_config/bash/
 dot_local/bin/omarchy-cmd-scrollshot
+dot_bashrc
 {{- end }}
