@@ -64,6 +64,24 @@ echo "*************************************************************************"
 yay -S --noconfirm --needed bitwarden
 
 echo "*************************************************************************"
+echo "*****                    Install Bitwarden CLI                      *****"
+echo "*************************************************************************"
+if ! command -v bw >/dev/null 2>&1
+then
+  BW_VERSION=$(curl -s "https://api.github.com/repos/bitwarden/clients/releases" | grep -o '"tag_name": "cli-v[^"]*"' | head -1 | grep -o '[0-9][^"]*')
+  echo "Downloading Bitwarden CLI v$BW_VERSION"
+  mkdir -p ~/.bin
+  wget -O /tmp/bw-linux.zip "https://github.com/bitwarden/clients/releases/download/cli-v${BW_VERSION}/bw-linux-${BW_VERSION}.zip"
+  unzip -o /tmp/bw-linux.zip -d /tmp/bw-extract
+  mv /tmp/bw-extract/bw ~/.bin/bw
+  chmod +x ~/.bin/bw
+  rm -rf /tmp/bw-linux.zip /tmp/bw-extract
+  echo "Bitwarden CLI v$BW_VERSION installed to ~/.bin/bw"
+else
+  echo "Bitwarden CLI already installed, skipping"
+fi
+
+echo "*************************************************************************"
 echo "*****                        Install Espanso                        *****"
 echo "*************************************************************************"
 if ! command -v espanso >/dev/null 2>&1

@@ -21,7 +21,7 @@ Linux() {
   
   DOWNLOAD_URL="https://bitwarden.com/download/?app=cli&platform=linux"
   TEMP_FILE="/tmp/bw-linux.zip"
-  INSTALL_PATH="$HOME/Apps/bw"
+  INSTALL_PATH="$HOME/.bin/bw"
 
   # check if dependencies are installed, auto-install if possible
   for dependency in unzip wget; do
@@ -45,16 +45,16 @@ Linux() {
   echo "Unzipping $TEMP_FILE"
   unzip -o "$TEMP_FILE" || { echo "Failed to unzip $TEMP_FILE."; exit 11; }
 
-  echo "Create ~/Apps folder if it doesn't exist"
-  mkdir -p $HOME/Apps
+  echo "Create ~/.bin folder if it doesn't exist"
+  mkdir -p "$HOME/.bin"
 
-  if [[ ":$PATH:" == *":$HOME/Apps:"* ]]; then
-    echo "~/Apps is already part of the PATH."
+  if [[ ":$PATH:" == *":$HOME/.bin:"* ]]; then
+    echo "~/.bin is already part of the PATH."
   else
-    echo 'export PATH="$HOME/Apps:$PATH"' >> "$HOME/.bashrc"
-    echo "⚠️  ~/Apps has been added to ~/.bashrc. Please restart your terminal or run: source ~/.bashrc"
+    echo 'export PATH="$HOME/.bin:$PATH"' >> "$HOME/.config/bash/custom.sh"
+    echo "⚠️  ~/.bin has been added to ~/.config/bash/custom.sh. Please restart your terminal or run: source ~/.bashrc"
   fi
-  
+
   echo "Moving bw to $INSTALL_PATH"
   mv bw "$INSTALL_PATH" || { echo "Failed to move bw to $INSTALL_PATH."; exit 12; }
 
